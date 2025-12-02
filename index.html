@@ -1,15 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Module 02 Assignment</title>
+    <title>Module 03 JavaScript Loops and Arrays</title>
 </head>
 <body>
 
-<h2>JavaScript Variable Assignment</h2>
-<p id="output"></p>
+<h2>Module 03 – JavaScript Loops and Arrays</h2>
 
-<script src="script.js"></script>
+<div id="output"></div>
 
+<script>
+// ----- PART 1: FOR LOOP 0-10 (ODD/EVEN CHECK) -----
+let outputDiv = document.getElementById("output");
+
+outputDiv.innerHTML += "<h3>For Loop: Odd and Even</h3>";
+
+for (let count = 0; count <= 10; count++) {
+    if (count % 2 === 0) {
+        outputDiv.innerHTML += `Count ${count} is even <br>`;
+    } else {
+        outputDiv.innerHTML += `Count ${count} is odd <br>`;
+    }
+}
+
+// ----- PART 2: DO WHILE LOOP USING USER INPUT -----
+let myNum = prompt("Enter a number between 5 and 20:");
+myNum = Number(myNum);
+
+outputDiv.innerHTML += "<h3>Do While Loop</h3>";
+
+let counter = 1;
+do {
+    outputDiv.innerHTML += `Counter: ${counter} <br>`;
+    counter++;
+} while (counter <= myNum);
+
+// ----- PART 3: ARRAY OF SUBJECTS -----
+outputDiv.innerHTML += "<h3>Subjects Array</h3>";
+
+let subjects = ["Accounting", "Algebra", "Programming", "Art", "Data Analytics"];
+
+// foreach display
+subjects.forEach(function(subject) {
+    outputDiv.innerHTML += subject + "<br>";
+});
+
+// comma-separated output
+outputDiv.innerHTML += "<br><strong>Comma-separated list:</strong><br>";
+outputDiv.innerHTML += subjects.join(", ");
+</script>
 </body>
 </html>
