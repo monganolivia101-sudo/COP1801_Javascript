@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Module 04 – Tip Calculator</title>
+</head>
+<body>
+
+<h2>Tip Calculator</h2>
+<div id="output"></div>
+
+<script>
+let outputDiv = document.getElementById("output");
+
+// --- Function to validate service quality ---
+function validateQuality(q) {
+    q = q.toLowerCase();
+    if (q === "great" || q === "ok" || q === "poor") {
+        return q;
+    } else {
+        return null;
+    }
+}
+
+// --- Function to validate service amount ---
+function validateAmount(amount) {
+    if (amount >= 5 && amount <= 500) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// --- Function to calculate tip ---
+function calculateTip(amount, quality) {
+    let rate;
+
+    if (quality === "great") {
+        rate = 0.20;
+    } else if (quality === "ok") {
+        rate = 0.15;
+    } else {
+        rate = 0.10;
+    }
+
+    return amount * rate;
+}
+
+// --- MAIN PROGRAM LOGIC ---
+
+// Ask for service amount
+let amount = Number(prompt("Enter the price of the service (between $5 and $500):"));
+
+// Validate amount
+if (!validateAmount(amount)) {
+    outputDiv.innerHTML = "Invalid service amount. Please refresh and try again.";
+} else {
+    
+    // Ask for service quality
+    let quality = prompt("Was the service great, ok, or poor?");
+    let validQuality = validateQuality(quality);
+
+    // Validate quality
+    if (validQuality === null) {
+        outputDiv.innerHTML = "Invalid service quality. Please refresh and try again.";
+    } else {
+        // Calculate tip
+        let tip = calculateTip(amount, validQuality);
+
+        outputDiv.innerHTML = 
+            `<h3>Tip Calculation Result</h3>
+             Service Amount: $${amount.toFixed(2)} <br>
+             Service Quality: ${validQuality} <br>
+             Recommended Tip: $${tip.toFixed(2)} <br><br>
+             Thank you for using the Tip Calculator!`;
+    }
+}
+</script>
+
+</body>
+</html>
