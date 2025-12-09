@@ -1,53 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Module 03 JavaScript Loops and Arrays</title>
+    <title>Module 04 – Tip Calculator</title>
 </head>
 <body>
 
-<h2>Module 03 – JavaScript Loops and Arrays</h2>
-
+<h2>Tip Calculator</h2>
 <div id="output"></div>
 
 <script>
-// ----- PART 1: FOR LOOP 0-10 (ODD/EVEN CHECK) -----
 let outputDiv = document.getElementById("output");
 
-outputDiv.innerHTML += "<h3>For Loop: Odd and Even</h3>";
-
-for (let count = 0; count <= 10; count++) {
-    if (count % 2 === 0) {
-        outputDiv.innerHTML += `Count ${count} is even <br>`;
+// --- Function to validate service quality ---
+function validateQuality(q) {
+    q = q.toLowerCase();
+    if (q === "great" || q === "ok" || q === "poor") {
+        return q;
     } else {
-        outputDiv.innerHTML += `Count ${count} is odd <br>`;
+        return null;
     }
 }
 
-// ----- PART 2: DO WHILE LOOP USING USER INPUT -----
-let myNum = prompt("Enter a number between 5 and 20:");
-myNum = Number(myNum);
+// --- Function to validate service amount ---
+function validateAmount(amount) {
+    if (amount >= 5 && amount <= 500) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-outputDiv.innerHTML += "<h3>Do While Loop</h3>";
+// --- Function to calculate tip ---
+function calculateTip(amount, quality) {
+    let rate;
 
-let counter = 1;
-do {
-    outputDiv.innerHTML += `Counter: ${counter} <br>`;
-    counter++;
-} while (counter <= myNum);
+    if (quality === "great") {
+        rate = 0.20;
+    } else if (quality === "ok") {
+        rate = 0.15;
+    } else {
+        rate = 0.10;
+    }
 
-// ----- PART 3: ARRAY OF SUBJECTS -----
-outputDiv.innerHTML += "<h3>Subjects Array</h3>";
+    return amount * rate;
+}
 
-let subjects = ["Accounting", "Algebra", "Programming", "Art", "Data Analytics"];
+// --- MAIN PROGRAM LOGIC ---
 
-// foreach display
-subjects.forEach(function(subject) {
-    outputDiv.innerHTML += subject + "<br>";
-});
+// Ask for service amount
+let amount = Number(prompt("Enter the price of the service (between $5 and $500):"));
 
-// comma-separated output
-outputDiv.innerHTML += "<br><strong>Comma-separated list:</strong><br>";
-outputDiv.innerHTML += subjects.join(", ");
+// Validate amount
+if (!validateAmount(amount)) {
+    outputDiv.innerHTML = "Invalid service amount. Please refresh and try again.";
+} else {
+    
+    // Ask for service quality
+    let quality = prompt("Was the service great, ok, or poor?");
+    let validQuality = validateQuality(quality);
+
+    // Validate quality
+    if (validQuality === null) {
+        outputDiv.innerHTML = "Invalid service quality. Please refresh and try again.";
+    } else {
+        // Calculate tip
+        let tip = calculateTip(amount, validQuality);
+
+        outputDiv.innerHTML = 
+            `<h3>Tip Calculation Result</h3>
+             Service Amount: $${amount.toFixed(2)} <br>
+             Service Quality: ${validQuality} <br>
+             Recommended Tip: $${tip.toFixed(2)} <br><br>
+             Thank you for using the Tip Calculator!`;
+    }
+}
 </script>
+
 </body>
 </html>
